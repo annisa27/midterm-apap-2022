@@ -64,7 +64,7 @@ public class CovidTrackingController {
 
     @GetMapping("/view-all")
     public String viewAllCovidCase(Model model) {
-        List<CovidCaseModel> covidCaseModelList = new ArrayList<>();
+        List<CovidCaseModel> covidCaseModelList = covidTrackerService.findAll();
         model.addAttribute("caseList", covidCaseModelList);
         return "case/view-all-covid-case";
     }

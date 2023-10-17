@@ -19,7 +19,8 @@ public class CovidCaseModel implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "case_id")
-    private long caseId;
+    private Long caseId;
+
     @Column(name = "nik")
     private String nik;
     @Column(name = "nama")
