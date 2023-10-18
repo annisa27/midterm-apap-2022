@@ -1,7 +1,10 @@
 package id.ac.ui.cs.eaap.lab.controller;
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.LastContactModel;
+import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
+import id.ac.ui.cs.eaap.lab.service.LastContactService;
 import id.ac.ui.cs.eaap.lab.service.ListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,12 @@ public class CovidTrackingController {
 
     @Autowired
     ListService listService;
+
+    @Autowired
+    LastContactService lastContactService;
+
+    @Autowired
+    LastContactDb lastContactDb;
 
     @GetMapping(value = "/")
     public String getAll(Model model) {
@@ -100,6 +109,38 @@ public class CovidTrackingController {
 
         redirectAttrs.addFlashAttribute("success",
                 String.format("Kasus baru berhasil diperbarui sebagai id %d", covidCaseToUpdate.getCaseId()));
+        return "redirect:/covid/view-all";
+    }
+
+    // Nomor 4: detail last contact
+    @GetMapping("/detail/{caseId}")
+    public String detailContactForm(
+            @PathVariable Long caseId,
+            Model model
+    ){
+        CovidCaseModel covidCaseDetail = covidTrackerService.getCovidCaseById(caseId);
+        model.addAttribute("covidCaseDetail", covidCaseDetail);
+
+        LastContactModel lastContact = new LastContactModel();
+        model.addAttribute("lastContact", lastContact);
+
+        List<LastContactModel> lastContactAvail = lastContactDb.findAllByCovidCaseModelCaseId(caseId);
+        model.addAttribute("lastContactAvail", lastContactAvail);
+
+        model.addAttribute("listService", listService);
+        
+        return "case/detail-case";
+    }
+
+    @PostMapping(value = "/detail/{caseId}", params = {"addContact"})
+    public String detailContactSubmit(@PathVariable Long caseId, @ModelAttribute LastContactModel lastContact, BindingResult result,
+                                       RedirectAttributes redirectAttrs) {
+
+        var covidCase = covidTrackerService.getCovidCaseById(caseId);
+        covidTrackerService.addLastContact(lastContact, covidCase);
+
+        redirectAttrs.addFlashAttribute("success",
+                String.format("Kasus baru berhasil diperbarui sebagai id %d", covidCase.getCaseId()));
         return "redirect:/covid/view-all";
     }
 }

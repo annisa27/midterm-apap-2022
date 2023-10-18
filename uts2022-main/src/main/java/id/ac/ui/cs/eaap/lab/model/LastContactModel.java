@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,11 +19,16 @@ public class LastContactModel implements Serializable {
     @GeneratedValue
     @Column(name = "case_contact_id")
     private long caseContactId;
+
     @Column(name = "nama")
     private String nama;
+    
     @Column(name = "keterangan")
     private String keterangan;
 
     // TODO: Relasi dengan CovidCaseModel
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "case_id", referencedColumnName = "case_id")
+    private CovidCaseModel covidCaseModel;
 
 }

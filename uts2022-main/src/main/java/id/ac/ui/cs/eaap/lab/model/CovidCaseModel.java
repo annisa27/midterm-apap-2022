@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -37,4 +38,6 @@ public class CovidCaseModel implements Serializable {
     @Column(name = "fakultas")
     private String fakultas;
 
+    @OneToMany(mappedBy = "covidCaseModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<LastContactModel> listLastContactModel;
 }
