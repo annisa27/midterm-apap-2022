@@ -49,6 +49,7 @@ public class CovidTrackingController {
         return "case/form-add-covid-case";
     }
 
+    // Nomor 2
     @PostMapping(value = "/add", params = {"save"})
     public String addPatientSubmitPage(@ModelAttribute CovidCaseModel covidCaseModel, BindingResult result,
                                        RedirectAttributes redirectAttrs) {
@@ -57,11 +58,14 @@ public class CovidTrackingController {
             return "redirect:/covid/add";
         }
 
+        covidTrackerService.add(covidCaseModel);
+
         redirectAttrs.addFlashAttribute("success",
                 String.format("Kasus baru berhasil disimpan sebagai id %d", covidCaseModel.getCaseId()));
         return "redirect:/covid/view-all";
     }
 
+    // Nomor 1
     @GetMapping("/view-all")
     public String viewAllCovidCase(Model model) {
         List<CovidCaseModel> covidCaseModelList = covidTrackerService.findAll();

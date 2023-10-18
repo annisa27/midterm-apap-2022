@@ -38,8 +38,10 @@
                 <td> Undefined</td>
                 </td>
                 <td>
-                    <span><a class="btn btn-sm btn-prmary"
-                            th:href="@{/detail/}+${case.caseId}">Detail</a></span>
+                    <span><a class="btn btn-sm btn-primary"
+                            th:href="@{detail/}+${case.caseId}">Detail</a></span>
+                    <span><a class="btn btn-sm btn-secondary"
+                            th:href="@{update/}+${case.caseId}">Update Status</a></span>
                 </td>
             </tr>
         </tbody>

@@ -24,6 +24,7 @@ public class CovidTrackerService {
     }
 
     public void add(CovidCaseModel covidCaseModel) {
+        covidCaseDb.save(covidCaseModel);
     }
 
     public void update(CovidCaseModel covidCaseModel) {

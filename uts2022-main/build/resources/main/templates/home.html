@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UTS - 1234567890</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar(home)"></nav>
+
+<div class="d-flex justify-content-center">
+    <div class="m-4">
+        <h2>Covid Tracking System</h2>
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/covid/view-all}" class="mx-2 btn btn-outline-primary">Lihat semua kasus</a>
+            <a th:href="@{/covid/add}" class="mx-2 btn btn-outline-primary">Tambah kasus</a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/report/active}" class="mx-2 btn btn-outline-primary">Laporan kasus aktif</a>
+            <a th:href="@{/report/statistics}" class="mx-2 btn btn-outline-primary">Statistik kasus</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
