@@ -2,6 +2,7 @@ package id.ac.ui.cs.eaap.lab.controller;
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
 import id.ac.ui.cs.eaap.lab.model.LastContactModel;
+import id.ac.ui.cs.eaap.lab.repository.CovidCaseDb;
 import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
 import id.ac.ui.cs.eaap.lab.service.LastContactService;
@@ -10,12 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -38,6 +41,9 @@ public class CovidTrackingController {
 
     @Autowired
     LastContactDb lastContactDb;
+
+    @Autowired
+    CovidCaseDb covidCaseDb;
 
     @GetMapping(value = "/")
     public String getAll(Model model) {
@@ -143,4 +149,19 @@ public class CovidTrackingController {
                 String.format("Kasus baru berhasil diperbarui sebagai id %d", covidCase.getCaseId()));
         return "redirect:/covid/view-all";
     }
+
+    //Nomor 5: Search nama
+    @GetMapping("/search")
+    public String listBuku(@RequestParam(name = "nama", required = false) String nama, Model model) {
+        List<CovidCaseModel> covidCaseModelList;
+
+     
+            // Jika nama tidak kosong, lakukan pencarian berdasarkan judul
+            covidCaseModelList = covidCaseDb.findByNamaContainingIgnoreCase(nama);
+
+
+        model.addAttribute("caseList", covidCaseModelList);
+        return "case/view-search";
+    }
+    
 }

@@ -10,4 +10,5 @@ import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
 @Repository
 public interface CovidCaseDb extends JpaRepository<CovidCaseModel, Long>{
     List<CovidCaseModel> findById(long caseId);
+    List<CovidCaseModel> findByNamaContainingIgnoreCase(String nama);
 }
