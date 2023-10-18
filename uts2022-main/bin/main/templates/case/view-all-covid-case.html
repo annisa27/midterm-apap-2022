@@ -29,9 +29,9 @@
         </thead>
         <tbody>
             <tr th:each="case, iterationStatus : ${caseList}">
-                <th scope="row" th:text="${iterationStatus.count}"></th>
                 <td th:text="${case.caseId}"></td>
                 <td th:text="${case.nik}"></td>
+                <td th:text="${case.nama}"></td>
                 <td th:text="${case.status}"></td>
                 <td th:text="${case.tanggalGejalaPertama}"></td>
                 <td th:text="${case.fakultas}"></td>

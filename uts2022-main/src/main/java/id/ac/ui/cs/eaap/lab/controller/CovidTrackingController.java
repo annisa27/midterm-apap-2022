@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -68,9 +69,37 @@ public class CovidTrackingController {
     // Nomor 1
     @GetMapping("/view-all")
     public String viewAllCovidCase(Model model) {
-        List<CovidCaseModel> covidCaseModelList = covidTrackerService.findAll();
+        List<CovidCaseModel> covidCaseModelList = covidTrackerService.findAllCaseModels();
         model.addAttribute("caseList", covidCaseModelList);
         return "case/view-all-covid-case";
     }
 
+    // Nomor 3: Update case
+    @GetMapping("/update/{caseId}")
+    public String formUpdateCase(
+            @PathVariable Long caseId,
+            Model model
+    ){
+        CovidCaseModel covidCaseToUpdate = covidTrackerService.getCovidCaseById(caseId);
+        model.addAttribute("covidCaseToUpdate", covidCaseToUpdate);
+        model.addAttribute("listService", listService);
+        return "case/form-update-case";
+    }
+
+    @PostMapping(value = "/update/{caseId}", params = {"update"})
+    public String updateCase(@PathVariable Long caseId, @ModelAttribute CovidCaseModel covidCaseToUpdate, BindingResult result,
+                                       RedirectAttributes redirectAttrs) {
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error", "The error occurred.");
+            return "redirect:/covid/update/{caseId}";
+        }
+
+        var updateCase = covidTrackerService.getCovidCaseById(caseId);
+        updateCase.setStatus(covidCaseToUpdate.getStatus());
+        covidTrackerService.add(updateCase);
+
+        redirectAttrs.addFlashAttribute("success",
+                String.format("Kasus baru berhasil diperbarui sebagai id %d", covidCaseToUpdate.getCaseId()));
+        return "redirect:/covid/view-all";
+    }
 }

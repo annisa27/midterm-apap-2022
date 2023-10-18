@@ -15,12 +15,21 @@ public class CovidTrackerService {
     @Autowired
     CovidCaseDb covidCaseDb;
 
-    public List<CovidCaseModel> findAll() {
+    public List<CovidCaseModel> findAllCaseModels() {
         return covidCaseDb.findAll();
     }
 
-    public List<CovidCaseModel> findActiveCases() {
-        return new ArrayList<>();
+    public List<CovidCaseModel> findActiveCases(long caseId) {
+        return covidCaseDb.findById(caseId);
+    }
+
+    public CovidCaseModel getCovidCaseById(Long caseId) {
+        for (CovidCaseModel caseCovid : findAllCaseModels()) {
+            if (caseCovid.getCaseId().equals(caseId)) {
+                return caseCovid;
+            }
+        }
+        return null;
     }
 
     public void add(CovidCaseModel covidCaseModel) {
