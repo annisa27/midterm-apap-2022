@@ -1,6 +1,7 @@
 package id.ac.ui.cs.eaap.lab.controller;
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.FakultasCase;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +34,10 @@ public class CovidRestController {
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity getStatisticsCovidCases() {
+    public ResponseEntity<List<FakultasCase>> getStatisticsCovidCases() {
         log.info("api statistics covid cases");
-        return ResponseEntity.ok("");
+        List<FakultasCase> listFakultasCase = covidTrackerService.getJumlahKasusByFakultas();
+        return ResponseEntity.ok(listFakultasCase);
     }
 
 

@@ -25,9 +25,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Data 1</td>
-            <td>Data 2</td>
+        <tr th:each="case, iterationStatus : ${caseList}">
+            <td th:text ="${case.fakultas}"></td>
+            <td th:text ="${case.jumlahKasus}"></td>
         </tr>
         </tbody>
     </table>
@@ -38,6 +38,37 @@
         <canvas id="myChart"></canvas>
     </div>
 </div>
+
+<script th:inline="javascript">
+    let table = new DataTable('#table_result');
+       const ctx = document.getElementById('myChart');
+   
+       const namaFakultas = [[${caseList}]].map(function(e){
+           return e.fakultas;
+       });
+       const jumlahKasus = [[${caseList}]].map(function(e){
+           return e.jumlahKasus;
+       });
+   
+       new Chart(ctx,{
+           type: 'bar',
+           data: {
+               labels: namaFakultas,
+               datasets:[{
+                   label: 'Jumlah Kasus',
+                   data: jumlahKasus,
+                   borderWidth: 1,
+               }]
+           },
+           options: {
+               scales: {
+                   y: {
+                       beginAtZero: true
+                   }
+               }
+           }
+       });
+   </script>
 
 
 </body>

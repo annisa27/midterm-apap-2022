@@ -2,6 +2,7 @@ package id.ac.ui.cs.eaap.lab.service;
 
 
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
+import id.ac.ui.cs.eaap.lab.model.FakultasCase;
 import id.ac.ui.cs.eaap.lab.model.LastContactModel;
 import id.ac.ui.cs.eaap.lab.repository.CovidCaseDb;
 import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
@@ -19,6 +20,9 @@ public class CovidTrackerService {
 
     @Autowired
     LastContactDb lastContactDb;
+
+    @Autowired
+    ListService listService;
 
     public List<CovidCaseModel> findAllCaseModels() {
         return covidCaseDb.findAll();
@@ -61,6 +65,29 @@ public class CovidTrackerService {
     }
 
     public void update(CovidCaseModel covidCaseModel) {
+    }
+
+    // Nomor 8 & 9
+    public int countByFakultas(String namaFakultas){
+        int counter = 0;
+        List<CovidCaseModel> listOfActiveCases = findActiveCases();
+        for (CovidCaseModel covidCaseModel : listOfActiveCases){
+            if (covidCaseModel.getFakultas().equals(namaFakultas)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public List<FakultasCase> getJumlahKasusByFakultas(){
+        List<FakultasCase> listOfFakultasCase = new ArrayList<>();
+        for (String fakultas : listService.getFakultasOptionsList()){
+            FakultasCase newFakultasCase = new FakultasCase();
+            newFakultasCase.setFakultas(fakultas);
+            newFakultasCase.setJumlahKasus(countByFakultas(fakultas));
+            listOfFakultasCase.add(newFakultasCase);
+        }
+        return listOfFakultasCase;
     }
 
     
