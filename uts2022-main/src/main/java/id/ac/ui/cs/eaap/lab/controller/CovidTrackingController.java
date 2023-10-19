@@ -155,10 +155,8 @@ public class CovidTrackingController {
     public String listBuku(@RequestParam(name = "nama", required = false) String nama, Model model) {
         List<CovidCaseModel> covidCaseModelList;
 
-     
-            // Jika nama tidak kosong, lakukan pencarian berdasarkan judul
-            covidCaseModelList = covidCaseDb.findByNamaContainingIgnoreCase(nama);
-
+        // Jika nama tidak kosong, lakukan pencarian berdasarkan judul
+        covidCaseModelList = covidCaseDb.findByNamaContainingIgnoreCase(nama);
 
         model.addAttribute("caseList", covidCaseModelList);
         return "case/view-search";

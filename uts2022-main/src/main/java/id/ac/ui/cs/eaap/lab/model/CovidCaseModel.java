@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(value={"LastContactModel"},allowSetters=true)
 @Table(name = "covid_case")
 public class CovidCaseModel implements Serializable {
 
@@ -41,7 +45,7 @@ public class CovidCaseModel implements Serializable {
     @OneToMany(mappedBy = "covidCaseModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LastContactModel> listLastContactModel;
 
-    // get jumlah hari
+    // Nomor 6: get jumlah hari, langsung render
     public long getJumlahHariSetelahGejalaPertama() {
         return (System.currentTimeMillis() - tanggalGejalaPertama.getTime()) / (1000 * 60 * 60 * 24) ;
     }

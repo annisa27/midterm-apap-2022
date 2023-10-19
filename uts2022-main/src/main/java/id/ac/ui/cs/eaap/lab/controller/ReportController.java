@@ -24,6 +24,7 @@ public class ReportController {
     @Autowired
     CovidCaseDb covidCaseDb;
 
+    // Nomor 7: URL
     @GetMapping(value = "/active")
     public String viewActiveCovidCase(Model model) {
         List<CovidCaseModel> ActiveCase = covidTrackerService.findActiveCases();

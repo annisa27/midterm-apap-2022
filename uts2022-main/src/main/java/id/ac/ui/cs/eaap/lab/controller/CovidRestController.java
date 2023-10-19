@@ -1,6 +1,8 @@
 package id.ac.ui.cs.eaap.lab.controller;
 
+import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,12 @@ public class CovidRestController {
         return ResponseEntity.ok("");
     }
 
+    // Nomor 7: api
     @GetMapping("/active")
-    public ResponseEntity getActiveCovidCases() {
+    public ResponseEntity<List<CovidCaseModel>> getActiveCovidCases() {
         log.info("api get all covid cases");
-        return ResponseEntity.ok("");
+        List<CovidCaseModel> listActiveCases = covidTrackerService.findActiveCases();
+        return ResponseEntity.ok(listActiveCases);
     }
 
     @GetMapping("/statistics")

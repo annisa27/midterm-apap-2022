@@ -48,13 +48,6 @@
                 <td th:text="${case.peran}"></td>
                 <td th:text="${case.tanggalGejalaPertama}"></td>
                 <td th:text="${case.getJumlahHariSetelahGejalaPertama}"></td>
-                </td>
-                <td>
-                    <span><a class="btn btn-sm btn-primary"
-                            th:href="@{detail/}+${case.caseId}">Detail</a></span>
-                    <span><a class="btn btn-sm btn-secondary"
-                            th:href="@{update/}+${case.caseId}">Update Status</a></span>
-                </td>
             </tr>
         </tbody>
     </table>
