@@ -7,8 +7,9 @@ import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
 import id.ac.ui.cs.eaap.lab.service.CovidTrackerService;
 import id.ac.ui.cs.eaap.lab.service.LastContactService;
 import id.ac.ui.cs.eaap.lab.service.ListService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.apache.commons.lang3.StringUtils;
@@ -27,22 +28,23 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 @RequestMapping("/covid")
 public class CovidTrackingController {
 
-    @Autowired
+
     CovidTrackerService covidTrackerService;
 
-    @Autowired
+
     ListService listService;
 
-    @Autowired
+
     LastContactService lastContactService;
 
-    @Autowired
+
     LastContactDb lastContactDb;
 
-    @Autowired
+
     CovidCaseDb covidCaseDb;
 
     @GetMapping(value = "/")

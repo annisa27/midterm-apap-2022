@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <title>Lihat Semua Kasus - UTS APAP 2022</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css"/>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#table_result').DataTable();
+        } );
+    </script>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar(laporan)"></nav>
+
+<div class="container">
+
+    <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+
+    <table id="table_result" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Case Id</th>
+            <th>NIK</th>
+            <th>Nama</th>
+            <th>Status</th>
+            <th>Fakultas</th>
+            <th>Peran</th>
+            <th>Tanggal Gejala Pertama</th>
+            <th>Jumlah Hari Setelah Gejala Pertama</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="case, iterationStatus : ${caseList}">
+                <td th:text="${case.caseId}"></td>
+                <td th:text="${case.nik}"></td>
+                <td th:text="${case.nama}"></td>
+                <td th:text="${case.status}"></td>
+                <td th:text="${case.fakultas}"></td>
+                <td th:text="${case.peran}"></td>
+                <td th:text="${case.tanggalGejalaPertama}"></td>
+                <td th:text="${case.getJumlahHariSetelahGejalaPertama}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
+

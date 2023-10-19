@@ -6,6 +6,7 @@ import id.ac.ui.cs.eaap.lab.model.FakultasCase;
 import id.ac.ui.cs.eaap.lab.model.LastContactModel;
 import id.ac.ui.cs.eaap.lab.repository.CovidCaseDb;
 import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
+import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CovidTrackerService {
-    @Autowired
     CovidCaseDb covidCaseDb;
 
-    @Autowired
     LastContactDb lastContactDb;
 
-    @Autowired
     ListService listService;
 
     public List<CovidCaseModel> findAllCaseModels() {

@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 import id.ac.ui.cs.eaap.lab.model.CovidCaseModel;
 import id.ac.ui.cs.eaap.lab.model.LastContactModel;
 import id.ac.ui.cs.eaap.lab.repository.LastContactDb;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class LastContactService {
-    @Autowired
     LastContactDb lastContactDb;
 
     public List<LastContactModel> findAllContact() {

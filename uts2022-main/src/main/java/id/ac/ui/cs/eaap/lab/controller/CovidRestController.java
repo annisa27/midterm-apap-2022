@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.AllArgsConstructor;
+
 @Slf4j
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/api/covid")
 public class CovidRestController {
-
-    @Autowired
     CovidTrackerService covidTrackerService;
 
     @GetMapping("/all")
