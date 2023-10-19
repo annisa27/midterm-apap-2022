@@ -2,9 +2,20 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <title>Lihat Semua Kasus - UTS APAP 2022</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css"/>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#table_result').DataTable();
+        } );
+    </script>
+
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar(laporan)"></nav>
@@ -28,18 +39,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Data 1</td>
-            <td>Data 2</td>
-            <td>Data 3</td>
-            <td>Data 4</td>
-            <td>Data 5</td>
-            <td>Data 6</td>
-            <td>Data 7</td>
-        </tr>
+            <tr th:each="case, iterationStatus : ${caseList}">
+                <td th:text="${case.caseId}"></td>
+                <td th:text="${case.nik}"></td>
+                <td th:text="${case.nama}"></td>
+                <td th:text="${case.status}"></td>
+                <td th:text="${case.fakultas}"></td>
+                <td th:text="${case.peran}"></td>
+                <td th:text="${case.tanggalGejalaPertama}"></td>
+                <td th:text="${case.getJumlahHariSetelahGejalaPertama}"></td>
+                </td>
+                <td>
+                    <span><a class="btn btn-sm btn-primary"
+                            th:href="@{detail/}+${case.caseId}">Detail</a></span>
+                    <span><a class="btn btn-sm btn-secondary"
+                            th:href="@{update/}+${case.caseId}">Update Status</a></span>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 </body>
 </html>
+
+

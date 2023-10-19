@@ -24,8 +24,17 @@ public class CovidTrackerService {
         return covidCaseDb.findAll();
     }
 
-    public List<CovidCaseModel> findActiveCases(long caseId) {
-        return covidCaseDb.findById(caseId);
+    public List<CovidCaseModel> findActiveCases() {
+        List<CovidCaseModel> listActiveCases = new ArrayList<>();
+        List<CovidCaseModel> listCovidCaseModel = findAllCaseModels();
+        for (CovidCaseModel covidCaseModel :
+                listCovidCaseModel) {
+            if ((covidCaseModel.getStatus().equals("suspek") || covidCaseModel.getStatus().equals("terkonfirmasi")) && covidCaseModel.getJumlahHariSetelahGejalaPertama() < 14) {
+                listActiveCases.add(covidCaseModel);
+            }
+        }
+        return listActiveCases;
+
     }
 
     public CovidCaseModel getCovidCaseById(Long caseId) {
@@ -45,7 +54,7 @@ public class CovidTrackerService {
         if (covidCase.getListLastContactModel() == null || covidCase.getListLastContactModel().size() == 0) {
             covidCase.setListLastContactModel(new ArrayList<>());
         }
-        
+
         lastContactModel.setCovidCaseModel(covidCase);
         covidCase.getListLastContactModel().add(lastContactModel);
         covidCaseDb.save(covidCase);
@@ -53,6 +62,8 @@ public class CovidTrackerService {
 
     public void update(CovidCaseModel covidCaseModel) {
     }
+
+    
 
 }
 
