@@ -40,4 +40,10 @@ public class CovidCaseModel implements Serializable {
 
     @OneToMany(mappedBy = "covidCaseModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LastContactModel> listLastContactModel;
+
+    // get jumlah hari
+    public long getJumlahHariSetelahGejalaPertama() {
+        return (System.currentTimeMillis() - tanggalGejalaPertama.getTime()) / (1000 * 60 * 60 * 24) ;
+    }
+
 }
